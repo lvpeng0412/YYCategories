@@ -11,7 +11,6 @@
 
 #import "YYCGUtilities.h"
 #import <Accelerate/Accelerate.h>
-#import "UIView+YYAdd.h"
 
 CGContextRef YYCGContextCreateARGBBitmapContext(CGSize size, BOOL opaque, CGFloat scale) {
     size_t width = ceil(size.width * scale);
@@ -134,20 +133,6 @@ CGAffineTransform YYCGAffineTransformGetFromPoints(CGPoint before[_Nullable 3], 
     
     CGAffineTransform transform = CGAffineTransformMake(M[0], M[2], M[1], M[3], M[4], M[5]);
     return transform;
-}
-
-CGAffineTransform YYCGAffineTransformGetFromViews(UIView *from, UIView *to) {
-    if (!from || !to) return CGAffineTransformIdentity;
-    
-    CGPoint before[3], after[3];
-    before[0] = CGPointMake(0, 0);
-    before[1] = CGPointMake(0, 1);
-    before[2] = CGPointMake(1, 0);
-    after[0] = [from convertPoint:before[0] toViewOrWindow:to];
-    after[1] = [from convertPoint:before[1] toViewOrWindow:to];
-    after[2] = [from convertPoint:before[2] toViewOrWindow:to];
-    
-    return YYCGAffineTransformGetFromPoints(before, after);
 }
 
 UIViewContentMode YYCAGravityToUIViewContentMode(NSString *gravity) {
